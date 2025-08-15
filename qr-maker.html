@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Quick QR Maker</title>
+<style>
+  body { font-family: Arial, sans-serif; background: #f6f7fb; display: flex; align-items: center; justify-content: center; height: 100vh; margin: 0; }
+  .card { background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); width: 350px; text-align: center; }
+  input { width: 100%; padding: 10px; margin-bottom: 10px; border: 1px solid #ccc; border-radius: 6px; }
+  button { padding: 10px 16px; border: none; background: #1a73e8; color: white; border-radius: 6px; cursor: pointer; font-weight: bold; }
+  button:hover { background: #155fc0; }
+  #qrcode { margin-top: 15px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>QR Code Generator</h2>
+  <input id="url" type="url" placeholder="Enter URL e.g. https://..." />
+  <button id="gen">Generate</button>
+  <div id="qrcode"></div>
+</div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script>
+document.getElementById('gen').addEventListener('click', function() {
+    const url = document.getElementById('url').value.trim();
+    if (!url || !/^https?:\/\//i.test(url)) {
+        alert('Please enter a valid URL starting with http:// or https://');
+        return;
+    }
+    document.getElementById('qrcode').innerHTML = ""; // Clear old QR
+    new QRCode(document.getElementById('qrcode'), {
+        text: url,
+        width: 256,
+        height: 256
+    });
+});
+</script>
+</body>
+</html>
